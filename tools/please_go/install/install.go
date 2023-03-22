@@ -246,7 +246,8 @@ func (install *PleaseGoInstall) compile(from []string, target string) error {
 	}
 
 	for _, i := range pkg.Imports {
-		fmt.Println("importing", i)
+		fmt.Fprintf(os.Stderr, "importing %s\n", i)
+		fmt.Fprintf(os.Stderr, "Compiling package %s from %v\n", target, from)
 		err := install.compile(from, i)
 		if err != nil {
 			if strings.Contains(err.Error(), "cannot find package") {
