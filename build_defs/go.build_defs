@@ -505,9 +505,11 @@ def _get_import_path(package="", import_path=""):
         else:
             path = CONFIG.GO.IMPORT_PATH
     else:
+        # path = corp/testing/coverage/feature/parser
         path = pkg
 
     if CONFIG.GO.LEGACY_IMPORTS and package and not path.endswith(package):
+        fail(f"returning {path}/{package} as the import path for {package}")
         return f"{path}/{package}"
 
     return path
@@ -1392,7 +1394,8 @@ def _go_pkg_info(name:str, srcs:list, importconfig:str=None, import_path:str="",
     if module:
         cmd = f'$TOOL m -m {module} {install_flags}'
     else:
-        import_path = _get_import_path(package, import_path)
+        # package=parse, import_path=
+        import_path = package
         cmd = f'$TOOL p -i "{CONFIG.GO.IMPORT_PATH}" -m "{import_path}:$PKG_DIR/{package}.a"'
     return build_rule(
         name = name,
