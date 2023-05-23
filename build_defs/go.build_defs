@@ -505,11 +505,9 @@ def _get_import_path(package="", import_path=""):
         else:
             path = CONFIG.GO.IMPORT_PATH
     else:
-        # path = corp/testing/coverage/feature/parser
         path = pkg
 
     if CONFIG.GO.LEGACY_IMPORTS and package and not path.endswith(package):
-        fail(f"returning {path}/{package} as the import path for {package}")
         return f"{path}/{package}"
 
     return path
