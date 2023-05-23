@@ -1392,6 +1392,8 @@ def _go_pkg_info(name:str, srcs:list, importconfig:str=None, import_path:str="",
     if module:
         cmd = f'$TOOL m -m {module} {install_flags}'
     else:
+        if name == "parse":
+            fail(f"package={package}, import_path={import_path")
         import_path = _get_import_path(package, import_path)
         cmd = f'$TOOL p -i "{CONFIG.GO.IMPORT_PATH}" -m "{import_path}:$PKG_DIR/{package}.a"'
     return build_rule(
